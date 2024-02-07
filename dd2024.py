@@ -1,28 +1,27 @@
 import os
+from sys import platform
 
-# Creates a directory for finding the Goblin Saves
-def findGoblins():
-    absolute_path = os.path.dirname(__file__)
-    relative_path = "goblins"
-    return os.path.join(absolute_path, relative_path)
+# Import loadtxt, set save path to goblins instead of saves
+from modules import loadtxt
+loadtxt.path_name = "goblins"    
 
-# Returns a list of all the goblins (.txt) found in /goblins
-def returnGoblins():
-    list = []
-    # No idea how this works
-    for (root, dirs, file) in os.walk(findGoblins()):
-        for x in file:
-            if '.txt' in x:
-                # Put all goblins into a list
-                list.append(x)
-    return list
+def platformVariables():
+    if platform == "win32":
+        return 'clr'
+    elif platform == 'darwin':
+        return 'clear'
 
+def selectGoblin(name):
+    pass
 
-os.system('clear')
-# Create a list of goblins
-goblinList = returnGoblins()
-for x in goblinList:
-    print(x)
+clear = platformVariables()
+os.system(clear)
+save_name = loadtxt.selectSave()
+
+# select correct save
+# read save and put it all into a list
+# go through list and scan for keywords
+# append save data onto the bottom
 
 
 

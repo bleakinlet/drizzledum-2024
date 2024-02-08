@@ -51,12 +51,26 @@ def selectSave():
         else:
             print("File not found, check file name?")
 
-# Returns a save  
+# Returns a save as a list
 def passSaveAsList(save_name):
     file_path = findSaves() + '/' + save_name + '.txt'
     file_list = []
+    word = ''
+
+    contents = ''
     with open(file_path, 'r') as file:
-        for line in file:
-            for word in line.split():
-                file_list.append(word)
+        contents = file.read(-1)
+
+    for character in contents:
+        if character == ' ':
+            if not word == '': file_list.append(word)
+            word = ''
+            continue
+        if character == '\n':
+            if not word == '': file_list.append(word)
+            file_list.append('\n')
+            word = ''
+            continue
+        word += character
+    
     return file_list
